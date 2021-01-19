@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Company>
+  <Employee>
+    <Name> Mohab Badran</Name>
+    <Department> Web Development</Department>
+    <Children>
+      <Child>
+        <Name> Ahmad </Name>
+        <Gender> male </Gender>
+        <BirthDate>
+          <Day>10</Day>
+          <Month>12</Month>
+          <Year>1998</Year>
+        </BirthDate>
+      </Child>
+    </Children>
+    <BirthDate>
+      <Day>1</Day>
+      <Month>1</Month>
+      <Year>1970</Year>
+    </BirthDate>
+    <HireDate>
+      <Day>10</Day>
+      <Month>5</Month>
+      <Year>2000</Year>
+    </HireDate>
+    <FullAddress>
+      <Street>Abraar</Street>
+      <Address>Deir algusson</Address>
+      <City>Tulkarm</City>
+      <PhoneNumber intro="970">0594353650</PhoneNumber>
+    </FullAddress>
+    <EmployeeHobbies>
+      <Hobby1>comes late</Hobby1>
+      <Hobby2> drink coffee</Hobby2>
+    </EmployeeHobbies>
+  </Employee>
+  <Employee>
+    <Name>Jamal Badran</Name>
+    <Department> Machine Learning </Department>
+    <Children>
+      <Child>
+        <Name>Mohammad</Name>
+        <Gender>male</Gender>
+        <BirthDate>
+          <Day>12</Day>
+          <Month>12</Month>
+          <Year>1994</Year>
+        </BirthDate>
+      </Child>
+      <Child>
+        <Name>Samir</Name>
+        <Gender>male</Gender>
+        <BirthDate>
+          <Day>2</Day>
+          <Month>2</Month>
+          <Year>2000</Year>
+        </BirthDate>
+      </Child>
+    </Children>
+    <BirthDate>
+      <Day>3</Day>
+      <Month>3</Month>
+      <Year>1970</Year>
+    </BirthDate>
+    <HireDate>
+      <Day>1</Day>
+      <Month>4</Month>
+      <Year>2003</Year>
+    </HireDate>
+    <FullAddress>
+      <Street>Alquds street</Street>
+      <Address>Al Berieh</Address>
+      <City>Ramallah</City>
+      <PhoneNumber intro="970">0599328543</PhoneNumber>
+    </FullAddress>
+    <EmployeeHobbies>
+      <Hobby1>comes late</Hobby1>
+      <Hobby2> drink coffee</Hobby2>
+    </EmployeeHobbies>
+  </Employee>
+  
+</Company>
