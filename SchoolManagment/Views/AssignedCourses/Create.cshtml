@@ -1,0 +1,209 @@
+﻿@model DEMO.Models.AssignedCourse
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var teachers = (IList<DEMO.Models.Teacher>)ViewData["teachers"];
+
+    var courses = (IList<DEMO.Models.Course>)ViewData["courses"];
+
+}
+
+<h1>Create</h1>
+
+<h4>Assign a Course</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input readonly asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="courseDate" class="control-label"></label>
+                <input asp-for="courseDate" class="form-control" />
+                <span asp-validation-for="courseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="course"></label>
+
+                <select name="course" asp-for="course" class="form-control" asp-items='new SelectList(courses, "Id", "courseName")'>
+                </select>
+                <span asp-validation-for="course" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="teacher"></label>
+
+                <select name="teacher" asp-for="teacher" class="form-control" asp-items='new SelectList(teachers, "Id", "name");'>
+                </select>
+                <span asp-validation-for="teacher" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-info" />
+            </div>
+            <div>
+                <a asp-action="Index" class="btn-outline-info">Back to List</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@*<div class="form-group">
+        <label asp-for="value" class="control-label"></label>
+        <input value=asp-for ="value" class="form-control" />
+        <span asp-validation-for="value" class="text-danger"></span>
+    </div>*@
+
+@*@using (Html.BeginForm("getSelectedValue", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.DropDownList("LogOffTime", new List<SelectListItem>
+        {
+           new SelectListItem{ Text="One", Value = "30000" },
+           new SelectListItem{ Text="Two", Value = "60000" },
+           new SelectListItem{ Text="Three", Value = "180000" }
+        }, "Select Time")
+
+        <input type="submit" value="Submit" />
+    }*@
+
+@*<div class="form-group">
+        <label asp-for="teacher" class="control-label"> Teacher name</label>
+        <input id="teacher" asp-for="teacher" class="form-control" />
+        <span asp-validation-for="teacher" class="text-danger"></span>
+    </div>*@
+
+@*@{
+    SelectList tlist = null;
+    SelectList clist = null;
+
+
+    SelectList getList()
+    {
+
+
+        tlist = new SelectList(teachers,"Id","name");
+
+        return tlist;
+    }
+    SelectList getCoursesList()
+    {
+
+
+        clist = new SelectList(courses, "Id", "courseName");
+
+        return clist;
+    }
+    //ter= (DEMO.Models.Teacher)tlist.SelectedValue;
+
+
+    //DEMO.Models. Teacher getValue()
+    //{
+    //    //if (tlist.SelectedValue == null)
+    //    //{
+    //    //    return "null";
+    //    //}
+    //    //return tlist.SelectedValue;
+    //}
+
+    //void setValue()
+    //{
+    //    ViewData["ID"] = tlist.SelectedValue.ToString();
+
+    //}
+    }*@
+
+
+
+
+
+
+
+@*@{var api = new DEMO.APICalingClass.APICalling();
+        var teachers = api.getTeachers();
+        var courses = api.getCourses();
+        List<string> tnames = new List<string>();
+        for (int i = 0; i < teachers.Count; i++)
+        {
+            tnames.Add(teachers[i].name);
+
+        }
+
+
+        SelectList tlist = new SelectList(teachers);
+        SelectList clist = new SelectList(courses);
+
+
+    }
+
+
+    @Html.DropDownListFor(m => m.teacher,
+                     tlist,
+                    "Select Teacher");*@
+
+
+
+@*<div class="form-group">
+        <label  asp-for="teacherid" class="control-label"></label>
+        <input  asp-for="teacherid" class="form-control" />
+
+        <span asp-validation-for="teacherid" class="text-danger"></span>
+    </div>*@
+
+@*<script>
+           @{var api = new DEMO.APICalingClass.APICalling();
+               var teachers = api.getTeachers();
+               var courses = api.getCourses();
+               SelectList tlist = new SelectList(teachers);
+               SelectList clist = new SelectList(courses);
+
+
+               }
+
+    </script>*@
+
+
+
+
+@*<script>
+
+
+        var optionsList = [
+            {
+                label: "Option 1",
+                value: "option-1"
+            },
+            {
+                label: "Option 2",
+                value: "option-2"
+            },
+            {
+                label: "Option 3",
+                value: "option-3"
+            }
+        ];
+        var selectTag = document.createElement("SELECT");
+
+        document.body.appendChild(selectTag);
+
+        optionsList.forEach(function (item, index, array) {
+            var opt = document.createElement("option");
+            opt.text = item.label;
+            opt.value = item.value;
+
+            selectTag.add(opt);
+        });
+
+    </script>*@
+@*//var courses = (List<DEMO.Models.Course>)ViewData["courses"];*@
