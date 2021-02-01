@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SchoolAPI.Models.Repositories
 {
-    interface IRoles<TEntity>
+    interface ILoggerManager
     {
 
     }

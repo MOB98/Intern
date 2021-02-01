@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,8 +16,13 @@ namespace SchoolAPI.Models
         [Required]
         public string courseDate { get; set; }
 
+        [ForeignKey("Courses")]
+        public int courseID { get; set; }
         public Course course { get; set; }
-        public Teacher teacher { get; set; }
+
+        [ForeignKey("Teachers")]
+        public int teacherID { get; set; }
+            public  Teacher teacher { get; set; }
         public ICollection<Student> student { get; set; }
         
 

@@ -22,7 +22,7 @@ namespace SchoolAPI.Models
         public string address { get; set; }
 
        
-        public ICollection<AssignedCourse> assignedCourses { get; set; }
+     //   public ICollection<AssignedCourse> assignedCourses { get; set; }
 
 
 

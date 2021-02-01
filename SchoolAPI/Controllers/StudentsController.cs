@@ -28,20 +28,35 @@ namespace SchoolAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudent()
         {
-            return await _context.Students.ToListAsync();
+
+            try
+            {
+               Program.log.Info("geting all the students...");
+                return await _context.Students.ToListAsync();
+               
+            }
+            catch (Exception)
+            {
+                Program.log.Error("could not get all the students");
+                throw;
+            }
+         
         }
 
         // GET: api/Students/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
+
+            Program.log.Info($"getting the Student with the Id = {id} founded");
             var student = await _context.Students.FindAsync(id);
 
             if (student == null)
             {
+                Program.log.Error($"Student with the Id = {id} not found in the database");
                 return NotFound();
             }
-
+            Program.log.Info($"Student with the Id = {id} founded");
             return student;
         }
 
@@ -59,16 +74,22 @@ namespace SchoolAPI.Controllers
 
             try
             {
+                Program.log.Info($"Waiting for edit the student with Id = {id} in the database.. ");
                 await _context.SaveChangesAsync();
-            }
+                Program.log.Info($" student with Id = {id} Edited ");
+            }   
             catch (DbUpdateConcurrencyException)
             {
                 if (!StudentExists(id))
                 {
+                    Program.log.Error($"Student with the Id = {id} not found in the database");
+
                     return NotFound();
                 }
                 else
                 {
+                    Program.log.Error($"something happens while editing the student data");
+
                     throw;
                 }
             }
@@ -82,7 +103,28 @@ namespace SchoolAPI.Controllers
         public async Task<ActionResult<Student>> PostStudent(Student student)
         {
             _context.Students.Add(student);
-            await _context.SaveChangesAsync();
+            try
+            {
+                Program.log.Info($"waiting for add a new student  ");
+                await _context.SaveChangesAsync();
+                Program.log.Info($"student with Id={student.Id} added to the database  ");
+            }
+
+            catch (DbUpdateException)
+            {
+                if (StudentExists(student.Id))
+                {
+                    Program.log.Error($" the student data conflict with the database");
+                    return Conflict();
+                }
+                else
+                {
+                    Program.log.Error($" something happens: student can not be added with the database");
+
+                    throw;
+                }
+            }
+           
 
             return CreatedAtAction("GetStudent", new { id = student.Id   }, student);
         }
@@ -91,14 +133,24 @@ namespace SchoolAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
+            Program.log.Info($"deleting the student with Id={id}...");
             var student = await _context.Students.FindAsync(id);
             if (student == null)
             {
+                Program.log.Error($" student with Id={id} does not exist in the database...");
                 return NotFound();
             }
 
             _context.Students.Remove(student);
-            await _context.SaveChangesAsync();
+            try { 
+                await _context.SaveChangesAsync();
+                Program.log.Info($" student with Id={id} deleted");
+            }
+            catch(Exception)
+            {
+                Program.log.Error($"something happens while deleting the student with Id={id} ");
+                throw;
+            }
 
             return NoContent();
         }

@@ -19,36 +19,6 @@ namespace SchoolAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("AssignedCourseStudent", b =>
-                {
-                    b.Property<int>("assignedCoursesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("studentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("assignedCoursesId", "studentId");
-
-                    b.HasIndex("studentId");
-
-                    b.ToTable("AssignedCourseStudent");
-                });
-
-            modelBuilder.Entity("CourseTeacher", b =>
-                {
-                    b.Property<int>("coursesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("teachersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("coursesId", "teachersId");
-
-                    b.HasIndex("teachersId");
-
-                    b.ToTable("CourseTeacher");
-                });
-
             modelBuilder.Entity("SchoolAPI.Models.AssignedCourse", b =>
                 {
                     b.Property<int>("Id")
@@ -60,17 +30,17 @@ namespace SchoolAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("courseId")
+                    b.Property<int>("courseID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("teacherId")
+                    b.Property<int>("teacherID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("courseId");
+                    b.HasIndex("courseID");
 
-                    b.HasIndex("teacherId");
+                    b.HasIndex("teacherID");
 
                     b.ToTable("AssignedCourses");
                 });
@@ -98,6 +68,9 @@ namespace SchoolAPI.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int?>("AssignedCourseId")
+                        .HasColumnType("int");
+
                     b.Property<string>("address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -111,6 +84,8 @@ namespace SchoolAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AssignedCourseId");
 
                     b.ToTable("Students");
                 });
@@ -139,54 +114,35 @@ namespace SchoolAPI.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("AssignedCourseStudent", b =>
-                {
-                    b.HasOne("SchoolAPI.Models.AssignedCourse", null)
-                        .WithMany()
-                        .HasForeignKey("assignedCoursesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolAPI.Models.Student", null)
-                        .WithMany()
-                        .HasForeignKey("studentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CourseTeacher", b =>
-                {
-                    b.HasOne("SchoolAPI.Models.Course", null)
-                        .WithMany()
-                        .HasForeignKey("coursesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolAPI.Models.Teacher", null)
-                        .WithMany()
-                        .HasForeignKey("teachersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("SchoolAPI.Models.AssignedCourse", b =>
                 {
                     b.HasOne("SchoolAPI.Models.Course", "course")
                         .WithMany()
-                        .HasForeignKey("courseId");
+                        .HasForeignKey("courseID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SchoolAPI.Models.Teacher", "teacher")
-                        .WithMany("assignedCourses")
-                        .HasForeignKey("teacherId");
+                        .WithMany()
+                        .HasForeignKey("teacherID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("course");
 
                     b.Navigation("teacher");
                 });
 
-            modelBuilder.Entity("SchoolAPI.Models.Teacher", b =>
+            modelBuilder.Entity("SchoolAPI.Models.Student", b =>
                 {
-                    b.Navigation("assignedCourses");
+                    b.HasOne("SchoolAPI.Models.AssignedCourse", null)
+                        .WithMany("student")
+                        .HasForeignKey("AssignedCourseId");
+                });
+
+            modelBuilder.Entity("SchoolAPI.Models.AssignedCourse", b =>
+                {
+                    b.Navigation("student");
                 });
 #pragma warning restore 612, 618
         }

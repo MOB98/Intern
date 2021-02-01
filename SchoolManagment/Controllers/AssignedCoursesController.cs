@@ -109,26 +109,27 @@ namespace DEMO.Controllers
         {
 
             int teacherId = int.Parse(Request.Form["teacher"]);
-            
-
             Teacher teacher = _api.getTeachers().ToList().Find(tr => tr.Id == teacherId);
             int courseId = int.Parse(Request.Form["course"]);
             Course course = _api.getCourses().ToList().Find(tr => tr.Id == courseId);
 
-            assignedCourse.teacher = teacher;
-            assignedCourse.course = course;
+            assignedCourse.teacherID = teacherId;
+            assignedCourse.courseID = courseId;
+      
+
 
             try
             {
                 HttpClient client = _api.Initial();
             //    StringContent content = new StringContent(JsonConvert.SerializeObject(assignedCourse), Encoding.UTF8, "application/json");
-
+                
                 var postTask = client.PostAsJsonAsync<AssignedCourse>("api/AssignedCourses", assignedCourse);
                 postTask.Wait();
 
                 var result = postTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
+                    
                     return RedirectToAction("Index");
                 }
                 else
@@ -165,6 +166,10 @@ namespace DEMO.Controllers
 
                 course = JsonConvert.DeserializeObject<AssignedCourse>(readTask);
             }
+            IList<Teacher> teachers = _api.getTeachers();
+            IList<Course> courses = _api.getCourses();
+            ViewData["teachers"] = teachers;
+            ViewData["courses"] = courses;
 
             return View(course);
         }
@@ -172,10 +177,18 @@ namespace DEMO.Controllers
         // POST: AssignedCoursesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, AssignedCourse course)
+        public ActionResult Edit(int id, AssignedCourse assignedCourse)
         {
+            int teacherId = int.Parse(Request.Form["teacher"]);
+            Teacher teacher = _api.getTeachers().ToList().Find(tr => tr.Id == teacherId);
+            int courseId = int.Parse(Request.Form["course"]);
+            Course course = _api.getCourses().ToList().Find(tr => tr.Id == courseId);
+
+            assignedCourse.teacherID = teacherId;
+            assignedCourse.courseID = courseId;
+
             HttpClient client = _api.Initial();
-            var putTask = client.PutAsJsonAsync<AssignedCourse>($"api/AssignedCourses/{id}", course);
+            var putTask = client.PutAsJsonAsync<AssignedCourse>($"api/AssignedCourses/{id}", assignedCourse);
             putTask.Wait();
 
             var result = putTask.Result;

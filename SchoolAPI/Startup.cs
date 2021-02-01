@@ -13,6 +13,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SchoolAPI.Data;
+using log4net;
+using log4net.Config;
+using System.IO;
+using log4net.Core;
 
 namespace SchoolAPI
 {
@@ -21,6 +25,8 @@ namespace SchoolAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+           
+           
         }
 
         public IConfiguration Configuration { get; }
@@ -48,6 +54,8 @@ namespace SchoolAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolAPI v1"));
             }
+
+      
 
             app.UseHttpsRedirection();
 

@@ -14,7 +14,7 @@ namespace SchoolAPI.Models
 
         [Required]
         public string courseName { get; set; }
-        public ICollection<Teacher> teachers { get; set; }
+   //     public ICollection<Teacher> teachers { get; set; }
 
    
     }

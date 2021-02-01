@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+
 }
 
 <h1>All Assigned Courses</h1>
@@ -21,8 +23,12 @@
                 @Html.DisplayNameFor(model => model.courseDate)
             </th>
             <th>
-                    Teacher Name
-                </th>
+                Teacher Name
+            </th>
+
+            <th>
+                Course Name
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -38,7 +44,12 @@
                 @Html.DisplayFor(modelItem => item.courseDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.teacher.name)
+                @findTeacherName(item.teacherID)
+                @*@Html.DisplayFor(modelItem => item.teacher.name)*@
+            </td>
+            <td>
+                @findCourseName(item.courseID)
+                @*@Html.DisplayFor(modelItem => item.teacher.name)*@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
@@ -49,3 +60,31 @@
         }
     </tbody>
 </table>
+
+@{
+
+    string findTeacherName(int id)
+    {
+        DEMO.APICalingClass.APICalling _api = new DEMO.APICalingClass.APICalling();
+        var trList = _api.getTeachers();
+        string name = trList.ToList().Find(tr => tr.Id == id).name;
+        return name;
+
+    }
+
+    string findCourseName(int id)
+    {
+        DEMO.APICalingClass.APICalling _api = new DEMO.APICalingClass.APICalling();
+        var csList = _api.getCourses();
+        string name = csList.ToList().Find(tr => tr.Id == id).courseName;
+        return name;
+
+    }
+
+
+}
+
+  @*var teachers = (IList<DEMO.Models.Teacher>
+    )ViewData["teachers"];
+
+    var courses = (IList<DEMO.Models.Course>)ViewData["courses"];*@

@@ -155,3 +155,7 @@ C:\Users\Mohab Badran\SchoolAPI\obj\Debug\net5.0\ref\SchoolAPI.dll
 C:\Users\Mohab Badran\SchoolAPI\obj\Debug\net5.0\SchoolAPI.pdb
 C:\Users\Mohab Badran\SchoolAPI\obj\Debug\net5.0\SchoolAPI.genruntimeconfig.cache
 C:\Users\Mohab Badran\SchoolAPI\bin\Debug\net5.0\SchoolAPI.Views.dll
+C:\Users\Mohab Badran\SchoolAPI\bin\Debug\net5.0\log4net.dll
+C:\Users\Mohab Badran\SchoolAPI\bin\Debug\net5.0\Microsoft.Extensions.Logging.Log4Net.AspNetCore.dll
+C:\Users\Mohab Badran\SchoolAPI\bin\Debug\net5.0\log4net.config
+C:\Users\Mohab Badran\SchoolAPI\bin\Debug\net5.0\web.config

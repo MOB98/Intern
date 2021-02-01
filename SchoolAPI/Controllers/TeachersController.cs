@@ -33,13 +33,15 @@ namespace SchoolAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Teacher>> GetTeacher(int id)
         {
+            Program.log.Info($"getting the Teacher with the Id = {id} founded");
             var teacher = await _context.Teachers.FindAsync(id);
 
             if (teacher == null)
             {
+                Program.log.Error($"Teacher with the Id = {id} not found in the database");
                 return NotFound();
             }
-
+            Program.log.Info($"Teacher with the Id = {id} founded");
             return teacher;
         }
 
@@ -57,16 +59,20 @@ namespace SchoolAPI.Controllers
 
             try
             {
+                Program.log.Info($"Waiting for edit the Teacher with Id = {id} in the database.. ");
                 await _context.SaveChangesAsync();
+                Program.log.Info($" Teacher with Id = {id} Edited ");
             }
             catch (DbUpdateConcurrencyException)
             {
                 if (!TeacherExists(id))
                 {
+                    Program.log.Error($"Teacher with the Id = {id} not found in the database");
                     return NotFound();
                 }
                 else
                 {
+                    Program.log.Error($"something happens while editing the Teacher data");
                     throw;
                 }
             }
@@ -79,9 +85,32 @@ namespace SchoolAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Teacher>> PostTeacher(Teacher teacher)
         {
-            _context.Teachers.Add(teacher);
-            await _context.SaveChangesAsync();
 
+            _context.Teachers.Add(teacher);
+
+            try
+            {
+                Program.log.Info($"waiting for add a new teacher  ");
+                await _context.SaveChangesAsync();
+                Program.log.Info($"teacher with Id={teacher.Id} added to the database  ");
+
+            }
+            catch (DbUpdateException)
+            {
+                if (TeacherExists(teacher.Id))
+                {
+                    Program.log.Error($" the teacher data conflict with the database");
+                    return Conflict();
+                }
+                else
+                {
+                    Program.log.Error($" something happens: teacher can not be added with the database");
+
+                    throw;
+                }
+            }
+            
+           
             return CreatedAtAction("GetTeacher", new { id = teacher.Id }, teacher);
         }
 
@@ -89,14 +118,28 @@ namespace SchoolAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeacher(int id)
         {
+            Program.log.Info($"deleting the teacher with Id={id}...");
             var teacher = await _context.Teachers.FindAsync(id);
             if (teacher == null)
             {
+                Program.log.Error($" teacher with Id={id} does not exist in the database...");
+
                 return NotFound();
             }
 
             _context.Teachers.Remove(teacher);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+                Program.log.Info($" teacher with Id={id} deleted");
+            }
+
+
+            catch (Exception) {
+                Program.log.Error($"something happens while deleting the teacher with Id={id} ");
+                throw;
+            }
+           
 
             return NoContent();
         }

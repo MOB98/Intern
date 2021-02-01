@@ -87,8 +87,13 @@ namespace DEMO.Controllers
             try
             {
                 HttpClient client = _api.Initial();
-              //  StringContent content = new StringContent(JsonConvert.SerializeObject(student), Encoding.UTF8, "application/json");
+                var stut = _api.getStudents().ToList().Find(st => st.phonenumber.Equals(student.phonenumber));
+                if (stut!=null)
+                {
+                    ModelState.AddModelError(string.Empty, "CONFLICT: this student has added before");
+                    return View(student);
 
+                }
                 var postTask = client.PostAsJsonAsync<Student>("api/Students", student);
                 postTask.Wait();
 
