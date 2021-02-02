@@ -7882,11 +7882,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mohab Badran\\SchoolAPI\\SchoolAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Mohab Badran\\Documents\\GitHub\\Intern\\SchoolAPI\\SchoolAPI.csproj",
       "projectName": "SchoolAPI",
-      "projectPath": "C:\\Users\\Mohab Badran\\SchoolAPI\\SchoolAPI.csproj",
+      "projectPath": "C:\\Users\\Mohab Badran\\Documents\\GitHub\\Intern\\SchoolAPI\\SchoolAPI.csproj",
       "packagesPath": "C:\\Users\\Mohab Badran\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mohab Badran\\SchoolAPI\\obj\\",
+      "outputPath": "C:\\Users\\Mohab Badran\\Documents\\GitHub\\Intern\\SchoolAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

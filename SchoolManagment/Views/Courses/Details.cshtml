@@ -1,33 +1,37 @@
 ﻿@model DEMO.Models.Course
+@using DEMO.Resources
+@using Microsoft.AspNetCore.Localization
 
+
+@inject LocService SharedLocalizer
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1>  @SharedLocalizer.GetLocalizedHtmlString("Details")</h1>
 
 <div>
-    <h4>Course</h4>
+    <h4>  @SharedLocalizer.GetLocalizedHtmlString("Course")</h4>
     <hr />
     <dl class="row">
-       
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
+
+        <dt class="col-sm-2">
+            @SharedLocalizer.GetLocalizedHtmlString("CourseId")
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Id)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.courseName)
+        <dt class="col-sm-2">
+            @SharedLocalizer.GetLocalizedHtmlString("CourseName")
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.courseName)
         </dd>
-       
+
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-info">Edit</a>
-    <a asp-action="Index" class="btn-outline-info">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-info">  @SharedLocalizer.GetLocalizedHtmlString("Edit")</a>
+    <a asp-action="Index" class="btn-outline-info">  @SharedLocalizer.GetLocalizedHtmlString("BackList")</a>
 </div>

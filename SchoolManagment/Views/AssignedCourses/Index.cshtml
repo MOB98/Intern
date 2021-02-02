@@ -1,5 +1,13 @@
 ﻿@model IEnumerable<DEMO.Models.AssignedCourse>
+@using DEMO.Resources
+@using Microsoft.AspNetCore.Localization
 
+
+@inject LocService SharedLocalizer
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,27 +15,27 @@
 
 }
 
-<h1>All Assigned Courses</h1>
+<h1>@SharedLocalizer.GetLocalizedHtmlString("All Courses")</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-info">Create New</a>
+    <a asp-action="Create" class="btn btn-info">@SharedLocalizer.GetLocalizedHtmlString("Create")</a>
 </p>
 <table class="table">
     <thead>
         <tr>
 
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @SharedLocalizer.GetLocalizedHtmlString("CourseId")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.courseDate)
+                @SharedLocalizer.GetLocalizedHtmlString("CourseDate")
             </th>
             <th>
-                Teacher Name
+                @SharedLocalizer.GetLocalizedHtmlString("TeacherName")
             </th>
 
             <th>
-                Course Name
+                @SharedLocalizer.GetLocalizedHtmlString("CourseName")
             </th>
             <th></th>
         </tr>
@@ -35,28 +43,28 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
+            <tr>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.courseDate)
-            </td>
-            <td>
-                @findTeacherName(item.teacherID)
-                @*@Html.DisplayFor(modelItem => item.teacher.name)*@
-            </td>
-            <td>
-                @findCourseName(item.courseID)
-                @*@Html.DisplayFor(modelItem => item.teacher.name)*@
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.courseDate)
+                </td>
+                <td>
+                    @findTeacherName(item.teacherID)
+                    @*@Html.DisplayFor(modelItem => item.teacher.name)*@
+                </td>
+                <td>
+                    @findCourseName(item.courseID)
+                    @*@Html.DisplayFor(modelItem => item.teacher.name)*@
+                </td>
+                <td>
+                    @Html.ActionLink(@SharedLocalizer.GetLocalizedHtmlString("Edit"), "Edit", new { id = item.Id }) |
+                    @Html.ActionLink(@SharedLocalizer.GetLocalizedHtmlString("Details"), "Details", new { id = item.Id }) |
+                    @Html.ActionLink(@SharedLocalizer.GetLocalizedHtmlString("Delete"), "Delete", new { id = item.Id })
+                </td>
+            </tr>
         }
     </tbody>
 </table>
@@ -84,7 +92,7 @@
 
 }
 
-  @*var teachers = (IList<DEMO.Models.Teacher>
+@*var teachers = (IList<DEMO.Models.Teacher>
     )ViewData["teachers"];
 
     var courses = (IList<DEMO.Models.Course>)ViewData["courses"];*@

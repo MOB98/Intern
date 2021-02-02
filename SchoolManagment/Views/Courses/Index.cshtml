@@ -1,11 +1,15 @@
 ﻿@model IEnumerable<DEMO.Models.Course>
+@using DEMO.Resources
+@using Microsoft.AspNetCore.Localization
 
+
+@inject LocService SharedLocalizer
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>All Courses</h1>
+<h1>@SharedLocalizer.GetLocalizedHtmlString("All Courses")</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-info">Create New</a>
@@ -13,39 +17,40 @@
 <table class="table">
     <thead>
         <tr>
-         
+
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @SharedLocalizer.GetLocalizedHtmlString("CourseId")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.courseName)
+                @SharedLocalizer.GetLocalizedHtmlString("CourseName")
             </th>
             @*<th>
-                Teacher Name
-            </th>*@
+                    Teacher Name
+                </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-         
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.courseName)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem =>  item.teacher.name)
-            </td>*@
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.courseName)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem =>  item.teacher.name)
+                    </td>*@
+                <td>
+                    @Html.ActionLink(@SharedLocalizer.GetLocalizedHtmlString("Edit"), "Edit", new { id = item.Id }) |
+                    @Html.ActionLink(@SharedLocalizer.GetLocalizedHtmlString("Details"), "Details", new { id = item.Id }) |
+                    @Html.ActionLink(@SharedLocalizer.GetLocalizedHtmlString("Delete"), "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 

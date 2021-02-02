@@ -16,6 +16,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Reflection;
+using DEMO.Resources;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 
 namespace DEMO
 {
@@ -45,7 +51,55 @@ namespace DEMO
                  .AddDefaultUI()
                  .AddEntityFrameworkStores<DEMOContext>()
                  .AddDefaultTokenProviders();
-            services.AddControllersWithViews();
+
+
+            services.AddSingleton<LocService>();
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            services.AddMvc()
+                .AddViewLocalization()
+                .AddDataAnnotationsLocalization(options =>
+                {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                    {
+                        var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName);
+                        return factory.Create("SharedResource", assemblyName.Name);
+                    };
+                });
+
+            services.Configure<RequestLocalizationOptions>(
+                options =>
+                {
+                    var supportedCultures = new List<CultureInfo>
+                        {
+                    new CultureInfo("en-US"),
+                    new CultureInfo("ar")
+                    
+                        };
+
+                    options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
+                    options.SupportedCultures = supportedCultures;
+                    options.SupportedUICultures = supportedCultures;
+
+                    options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
+                });
+
+
+            //services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            //services.AddMvc()
+            //        .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+            //        .AddDataAnnotationsLocalization();
+
+            //services.AddControllersWithViews();
+
+            //services.Configure<RequestLocalizationOptions>(options =>
+            //{
+            //    var supportedCultures = new[] { "en", "ar" };
+            //    options.SetDefaultCulture(supportedCultures[0])
+            //        .AddSupportedCultures(supportedCultures)
+            //        .AddSupportedUICultures(supportedCultures);
+            //});
             services.AddRazorPages();
 
             //services.AddAuthorization(options => {
@@ -86,8 +140,19 @@ namespace DEMO
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
+            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(locOptions.Value);
+
             app.UseStaticFiles();
 
+            //var supportedCultures = new[] { "en", "ar" };
+
+            //var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+            //    .AddSupportedCultures(supportedCultures)
+            //    .AddSupportedUICultures(supportedCultures);
+
+            //app.UseRequestLocalization(localizationOptions);
             app.UseRouting();
             
             app.UseAuthorization();

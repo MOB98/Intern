@@ -9663,11 +9663,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mohab Badran\\DEMO\\DEMO.csproj",
+      "projectUniqueName": "C:\\Users\\Mohab Badran\\Documents\\GitHub\\Intern\\SchoolManagment\\DEMO.csproj",
       "projectName": "DEMO",
-      "projectPath": "C:\\Users\\Mohab Badran\\DEMO\\DEMO.csproj",
+      "projectPath": "C:\\Users\\Mohab Badran\\Documents\\GitHub\\Intern\\SchoolManagment\\DEMO.csproj",
       "packagesPath": "C:\\Users\\Mohab Badran\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mohab Badran\\DEMO\\obj\\",
+      "outputPath": "C:\\Users\\Mohab Badran\\Documents\\GitHub\\Intern\\SchoolManagment\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

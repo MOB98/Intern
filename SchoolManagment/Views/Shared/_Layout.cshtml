@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using DEMO.Resources
+@using Microsoft.AspNetCore.Localization
+
+
+@inject LocService SharedLocalizer
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -16,37 +22,45 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#">@SharedLocalizer.GetLocalizedHtmlString("Home") <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="~/Students">Students</a>
+                    <a class="nav-link" href="~/Students">@SharedLocalizer.GetLocalizedHtmlString("Students")</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="~/Teachers">Teachers</a>
+                    <a class="nav-link" href="~/Teachers">@SharedLocalizer.GetLocalizedHtmlString("Teachers")</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="~/Courses">Courses</a>
+                    <a class="nav-link" href="~/Courses">@SharedLocalizer.GetLocalizedHtmlString("Courses")</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="~/AssignedCourses">AssignedCourses</a>
+                    <a class="nav-link" href="~/AssignedCourses">@SharedLocalizer.GetLocalizedHtmlString("AssignedCourses")</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="~/Roles">Role</a>
+                    <a class="nav-link" href="~/Roles">@SharedLocalizer.GetLocalizedHtmlString("Role")</a>
                 </li>
-                <li class="nav-item"  style="margin-left:550px">
-                    <a class="nav-link" href="~/Identity/Account/login">Sign in</a>
+
+
+                <li class="nav-item">
+                    @await Html.PartialAsync("_SelectLanguagePartial")
+                </li>
+
+
+
+                <li class="nav-item" style="margin-left:550px">
+                    <a class="nav-link" href="~/Identity/Account/login">@SharedLocalizer.GetLocalizedHtmlString("Signin")</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="~/Identity/Account/register">Register</a>
+                    <a class="nav-link" href="~/Identity/Account/register">@SharedLocalizer.GetLocalizedHtmlString("Register")</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0" asp-action="Search" asp-controller="Student">
-                <input class="form-control mr-sm-2" name="term" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            @*<form class="form-inline my-2 my-lg-0" asp-action="Search" asp-controller="Student">
+                    <input class="form-control mr-sm-2" name="term" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>*@
         </div>
     </nav>
     <div class="container">

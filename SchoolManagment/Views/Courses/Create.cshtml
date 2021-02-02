@@ -1,35 +1,39 @@
 ﻿@model DEMO.Models.Course
+@using DEMO.Resources
+@using Microsoft.AspNetCore.Localization
 
+
+@inject LocService SharedLocalizer
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>@SharedLocalizer.GetLocalizedHtmlString("Create")</h1>
 
-<h4>Course</h4>
+<h4>@SharedLocalizer.GetLocalizedHtmlString("Course")</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
+                <label asp-for="Id" class="control-label">@SharedLocalizer.GetLocalizedHtmlString("CourseId")</label>
                 <input readonly asp-for="Id" class="form-control" />
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="courseName" class="control-label"></label>
+                <label asp-for="courseName" class="control-label">@SharedLocalizer.GetLocalizedHtmlString("CourseName")</label>
                 <input asp-for="courseName" class="form-control" />
                 <span asp-validation-for="courseName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-info" />
+                <input type="submit" value=@SharedLocalizer.GetLocalizedHtmlString("Create") class="btn btn-info" />
             </div>
             <div>
-                <a asp-action="Index" class="btn-outline-info">Back to List</a>
+                <a asp-action="Index" class="btn-outline-info">@SharedLocalizer.GetLocalizedHtmlString("BackList")</a>
             </div>
 
         </form>
