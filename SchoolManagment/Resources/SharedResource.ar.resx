@@ -207,6 +207,9 @@
   <data name="StudentPhone" xml:space="preserve">
     <value>رقم هاتف الطالب</value>
   </data>
+  <data name="Students" xml:space="preserve">
+    <value>الطلاب</value>
+  </data>
   <data name="Teacher" xml:space="preserve">
     <value>المعلم</value>
   </data>
